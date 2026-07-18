@@ -6,9 +6,9 @@ A modular development and test platform for field oriented control (FOC) of low-
   <img src="Docs/figures/setup_full.jpg" alt="Prototype running on the bench" width="720">
 </p>
 
-The full FOC algorithm — Clarke and Park transforms, synchronous-frame PI current loops and space vector modulation (SVPWM) — runs on an ARM Cortex-M3 **without a floating point unit**, at a 4 kHz control rate. Absolute rotor position comes from a magnetic encoder, so the machine delivers maximum torque even at zero speed. The hardware is split into four boards and provisions three different current sensing routes, allowing them to be compared (and made redundant) on the same platform.
+The full FOC algorithm, comprising the Clarke and Park transforms, synchronous-frame PI current loops and space vector modulation (SVPWM), runs on an ARM Cortex-M3 **without a floating point unit**, at a 4 kHz control rate. Absolute rotor position comes from a magnetic encoder, so the machine delivers maximum torque even at zero speed. The hardware is split into four boards and provisions three different current sensing routes, allowing them to be compared (and made redundant) on the same platform.
 
-This project was developed as my Electrical Engineering final project at UFRGS, advised by Prof. Tiago Balen. The PSoC 5LP is not the obvious choice for motor control today — and that is precisely the point: its programmable analog and digital fabric makes it a remarkably flexible substrate for research on fault effects and fault-tolerant controller architectures, which is the intended future of this platform. The focus is not a final product, but a well-instrumented testbed.
+This project was developed as my Electrical Engineering final project at UFRGS, advised by Prof. Tiago Balen. The PSoC 5LP is not the obvious choice for motor control today, and that is precisely the point: its programmable analog and digital fabric makes it a remarkably flexible substrate for research on fault effects and fault-tolerant controller architectures, which is the intended future of this platform. The focus is not a final product, but a well-instrumented testbed.
 
 ## Features
 
@@ -28,8 +28,8 @@ This project was developed as my Electrical Engineering final project at UFRGS, 
 
 Two time-critical tasks run from hardware clock interrupts:
 
-- **HFT (4 kHz)** — reads the encoder angle and the phase currents, runs the current loop (Clarke → Park → d/q PIs → inverse Park → SVPWM) and updates the three PWM compare registers;
-- **LFT (1 kHz)** — reads the user references (potentiometers), runs the outer speed or position loop and generates the `Iq` reference for the HFT.
+- **HFT (4 kHz)**: reads the encoder angle and the phase currents, runs the current loop (Clarke → Park → d/q PIs → inverse Park → SVPWM) and updates the three PWM compare registers;
+- **LFT (1 kHz)**: reads the user references (potentiometers), runs the outer speed or position loop and generates the `Iq` reference for the HFT.
 
 The control mode is selected by a single `#define` in `main.c` (`CONTROL_MODE_TORQUE`, `CONTROL_MODE_SPEED`, `CONTROL_MODE_POSITION`), and the `TEST_MODE_*` variants replace the knob reference with automated step sequences for characterization. The whole controller state lives in a single `xFOC_Ctrl` structure.
 
@@ -54,7 +54,7 @@ Each board folder in `Hardware/` carries the schematic (SVG), the PCB layout (PD
   <img src="Docs/figures/prototype-3d-render.png" alt="3D render of the board stack" width="640">
 </p>
 
-The test machine is an automotive PMSM: 12 V bus, four pole pairs, sinusoidal BEMF and negligible cogging — a convenient, robust load for low-power dynamic tests.
+The test machine is an automotive PMSM: 12 V bus, four pole pairs, sinusoidal BEMF and negligible cogging, which makes it a convenient, robust load for low-power dynamic tests.
 
 ## Firmware
 
@@ -105,6 +105,6 @@ Validated on the bench: SVPWM generation, open-loop voltage drive, closed-loop `
 
 ## License
 
-MIT — see [LICENSE](Firmware/DTMR_Inverter.cydsn/LICENSE.txt).
+MIT. See [LICENSE](Firmware/DTMR_Inverter.cydsn/LICENSE.txt).
 
 If this platform is useful in your research, the full monograph (in Portuguese) documents the design decisions in detail: *O. N. A. S. Akama, "Desenvolvimento de plataforma para controle vetorial de máquinas PMSM orientado a redundância de sensoriamento com microcontrolador de sinal misto PSoC5LP", UFRGS, 2026. Advisor: Prof. Dr. Tiago Roberto Balen.*
