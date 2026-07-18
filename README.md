@@ -23,7 +23,7 @@ This project was developed as my Electrical Engineering final project at UFRGS, 
 ## Control architecture
 
 <p align="center">
-  <img src="Docs/figures/foc_control_diagram.png" alt="FOC control diagram" width="860">
+  <img src="Docs/figures/foc_control_diagram.png?v=2" alt="FOC control diagram" width="860">
 </p>
 
 Two time-critical tasks run from hardware clock interrupts:
@@ -38,7 +38,7 @@ Since the current loop is measured with inline shunts but the modulation is refe
 ## Hardware
 
 <p align="center">
-  <img src="Docs/figures/hardware_architecture.png" alt="Hardware architecture" width="860">
+  <img src="Docs/figures/hardware_architecture.png?v=2" alt="Hardware architecture" width="860">
 </p>
 
 | Board | Contents |
@@ -51,7 +51,7 @@ Since the current loop is measured with inline shunts but the modulation is refe
 Each board folder in `Hardware/` carries the schematic (SVG), the PCB layout (PDF) and the Gerber package. The prototypes were milled on a CNC; the boards were designed with that process in mind (single/double layer, generous clearances).
 
 <p align="center">
-  <img src="Docs/figures/prototype_3d_render.png" alt="3D render of the board stack" width="640">
+  <img src="Docs/figures/prototype_3d_render.png?v=2" alt="3D render of the board stack" width="640">
 </p>
 
 The test machine is an automotive PMSM: 12 V bus, four pole pairs, sinusoidal BEMF and negligible cogging — a convenient, robust load for low-power dynamic tests.
@@ -59,7 +59,7 @@ The test machine is an automotive PMSM: 12 V bus, four pole pairs, sinusoidal BE
 ## Firmware
 
 <p align="center">
-  <img src="Docs/figures/firmware_architecture.png" alt="Firmware layers" width="720">
+  <img src="Docs/figures/firmware_architecture.png?v=2" alt="Firmware layers" width="720">
 </p>
 
 The firmware (`Firmware/DTMR_Inverter.cydsn`, PSoC Creator 4.4, C99) is structured in layers: `main` holds the two tasks and the control modes; the libraries (`FOC`, `PID`, `Inverter_Utils`, `DutyMeas`) are hardware-independent; the user-level drivers (`Drv_ADC`, `Drv_PWM`, `Drv_Timer`, `Drv_UART`, `Drv_A1339`, `Drv_Cycle`) wrap the vendor-generated peripherals. Naming follows a strict type-prefix standard (`vFOC_Svpwm`, `bDrvAdc_RunCurrentSense`, `ui16DrvA1339_ReadRawAngle`), functions carry Doxygen briefs, and there is no dynamic allocation.
@@ -67,7 +67,7 @@ The firmware (`Firmware/DTMR_Inverter.cydsn`, PSoC Creator 4.4, C99) is structur
 A significant part of the "schematic" is inside the chip. The PSoC's fabric implements the three synchronized UDB PWMs, the clock dividers that fire the HFT/LFT interrupts, the SAR ADC sequencer for the current channels, the SPI master for the encoder and the µs timer used for execution-time capture:
 
 <p align="center">
-  <img src="Docs/figures/psoc_topdesign.png" alt="PSoC Creator TopDesign" width="860">
+  <img src="Docs/figures/psoc_topdesign.png?v=2" alt="PSoC Creator TopDesign" width="860">
 </p>
 
 ## Getting started
